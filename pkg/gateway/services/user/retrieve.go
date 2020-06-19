@@ -3,7 +3,7 @@ package user
 import "github.com/pronuu/roosevelt/internal/models"
 
 // Retrieve ...
-func (s *service) Retrieve(id uint, email string) (models.User, error) {
+func (s *service) Retrieve(id uint, email string) (*models.User, error) {
 	user := models.User{
 		Base: models.Base{
 			ID: id,
@@ -14,7 +14,7 @@ func (s *service) Retrieve(id uint, email string) (models.User, error) {
 	}
 	err := s.Store.Database.Where(user).First(&user).Error
 	if err != nil {
-		return user, err
+		return nil, err
 	}
-	return user, nil
+	return &user, nil
 }

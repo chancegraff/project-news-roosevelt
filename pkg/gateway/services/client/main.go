@@ -7,8 +7,8 @@ import (
 
 // Service implements the ranker interface
 type Service interface {
-	Create(distinctions models.Distinctions) (models.Client, error)
-	Retrieve(id uint, ip, hash, userID string) (models.Client, error)
+	Create(distinctions models.Distinctions) (*models.Client, error)
+	Retrieve(id uint, ip, hash, userID string) (*models.Client, error)
 }
 
 type service struct {

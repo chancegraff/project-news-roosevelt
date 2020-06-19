@@ -6,14 +6,14 @@ import (
 )
 
 // Create ...
-func (s *service) Create(distinctions models.Distinctions) (models.Client, error) {
+func (s *service) Create(distinctions models.Distinctions) (*models.Client, error) {
 	client := models.Client{
 		Distinctions: distinctions,
 		ExpiredAt:    utils.Tomorrow(),
 	}
 	err := s.Store.Database.Create(&client).Error
 	if err != nil {
-		return client, err
+		return nil, err
 	}
-	return client, nil
+	return &client, nil
 }

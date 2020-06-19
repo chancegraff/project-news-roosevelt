@@ -7,9 +7,9 @@ import (
 
 // Service implements the collector interface
 type Service interface {
-	Create(credentials models.Credentials) (models.User, error)
-	Retrieve(id uint, email string) (models.User, error)
-	Update(id uint, credentials models.Credentials) (models.User, error)
+	Create(credentials models.Credentials) (*models.User, error)
+	Retrieve(id uint, email string) (*models.User, error)
+	Update(id uint, credentials models.Credentials) (*models.User, error)
 }
 
 type service struct {

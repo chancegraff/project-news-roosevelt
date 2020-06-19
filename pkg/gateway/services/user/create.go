@@ -5,13 +5,13 @@ import (
 )
 
 // Create ...
-func (s *service) Create(credentials models.Credentials) (models.User, error) {
+func (s *service) Create(credentials models.Credentials) (*models.User, error) {
 	user := models.User{
 		Credentials: credentials,
 	}
 	err := s.Store.Database.Create(&user).Error
 	if err != nil {
-		return user, err
+		return nil, err
 	}
-	return user, nil
+	return &user, nil
 }

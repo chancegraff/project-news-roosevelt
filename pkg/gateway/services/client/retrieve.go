@@ -5,7 +5,7 @@ import (
 )
 
 // Retrieve ...
-func (s *service) Retrieve(id uint, ip, hash, userID string) (models.Client, error) {
+func (s *service) Retrieve(id uint, ip, hash, userID string) (*models.Client, error) {
 	client := models.Client{
 		Base: models.Base{
 			ID: id,
@@ -18,7 +18,7 @@ func (s *service) Retrieve(id uint, ip, hash, userID string) (models.Client, err
 	}
 	err := s.Store.Database.Where(client).First(&client).Error
 	if err != nil {
-		return client, err
+		return nil, err
 	}
-	return client, nil
+	return &client, nil
 }
