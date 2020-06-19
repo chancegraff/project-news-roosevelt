@@ -11,7 +11,7 @@ import (
 
 // UpdateRequest ...
 type UpdateRequest struct {
-	ID          string             `json:"id"`
+	ID          uint               `json:"id"`
 	Credentials models.Credentials `json:"user"`
 }
 

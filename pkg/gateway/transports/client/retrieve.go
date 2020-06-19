@@ -11,7 +11,7 @@ import (
 
 // RetrieveRequest ...
 type RetrieveRequest struct {
-	ID     string `json:"id"`
+	ID     uint   `json:"id"`
 	IP     string `json:"ip"`
 	Hash   string `json:"hash"`
 	UserID string `json:"userId"`
