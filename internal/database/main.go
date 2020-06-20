@@ -8,6 +8,22 @@ import (
 	"github.com/pronuu/roosevelt/internal/models"
 )
 
+// NewStore will instantiate a database Store
+func NewStore() (*Store, error) {
+	store := Store{}
+
+	// Start connection
+	err := store.Start()
+	if err != nil {
+		return nil, err
+	}
+
+	// Run migrations
+	store.Migrate()
+
+	return &store, nil
+}
+
 // Store is the connection to the database
 type Store struct {
 	Database *gorm.DB
@@ -34,22 +50,6 @@ func (s *Store) Migrate() {
 }
 
 // Stop will close the connection to the database
-func (s *Store) Stop() {
-	s.Database.Close()
-}
-
-// NewStore will instantiate a database Store
-func NewStore() (*Store, error) {
-	store := Store{}
-
-	// Start connection
-	err := store.Start()
-	if err != nil {
-		return nil, err
-	}
-
-	// Run migrations
-	store.Migrate()
-
-	return &store, nil
+func (s *Store) Stop() error {
+	return s.Database.Close()
 }

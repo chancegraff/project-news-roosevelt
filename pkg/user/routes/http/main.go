@@ -24,7 +24,7 @@ func NewRoutes(endpoints *endpoints.Endpoints) Routes {
 
 // Route ...
 func (r *Routes) Route(mxr *mux.Router) *mux.Router {
-	route := mxr.PathPrefix("/auth").Subrouter()
+	route := mxr.PathPrefix("/user").Subrouter()
 	route.HandleFunc("/create", r.Create).Methods("POST", "OPTIONS")
 	route.HandleFunc("/update", r.Update).Methods("POST", "OPTIONS")
 	route.HandleFunc("/retrieve", r.Retrieve).Methods("POST", "OPTIONS")
