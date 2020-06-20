@@ -14,7 +14,7 @@ import (
 func MakeCreateEndpoint(svc services.Services) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(*transports.CreateRequest)
-		user, err := svc.Create(ctx, req.Credentials)
+		user, err := svc.Create(ctx, req.User)
 		if err != nil {
 			return &transports.CreateResponse{
 				User: user,
@@ -29,8 +29,8 @@ func MakeCreateEndpoint(svc services.Services) endpoint.Endpoint {
 }
 
 // Create ...
-func (e *Endpoints) Create(ctx context.Context, credentials models.Credentials) (*models.User, error) {
-	req := &transports.CreateRequest{Credentials: credentials}
+func (e *Endpoints) Create(ctx context.Context, user *models.User) (*models.User, error) {
+	req := &transports.CreateRequest{User: user}
 	resp, err := e.CreateEndpoint(ctx, req)
 	if err != nil {
 		return nil, err

@@ -11,10 +11,7 @@ import (
 
 // RetrieveRequest ...
 type RetrieveRequest struct {
-	ID     uint   `json:"id"`
-	IP     string `json:"ip"`
-	Hash   string `json:"hash"`
-	UserID string `json:"userId"`
+	Client *models.Client `json:"client"`
 }
 
 // RetrieveResponse ...

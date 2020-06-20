@@ -11,7 +11,7 @@ import (
 
 // CreateRequest ...
 type CreateRequest struct {
-	Distinctions models.Distinctions `json:"client"`
+	Client *models.Client `json:"client"`
 }
 
 // CreateResponse ...

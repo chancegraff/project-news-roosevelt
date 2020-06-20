@@ -11,7 +11,7 @@ import (
 
 // CreateRequest ...
 type CreateRequest struct {
-	Credentials models.Credentials `json:"user"`
+	User *models.User `json:"user"`
 }
 
 // CreateResponse ...

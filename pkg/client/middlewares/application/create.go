@@ -2,27 +2,22 @@ package application
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/pronuu/roosevelt/internal/models"
 )
 
 // Create ...
-func (m *Middleware) Create(ctx context.Context, distinctions models.Distinctions) (output *models.Client, err error) {
+func (m *Middleware) Create(ctx context.Context, client *models.Client) (output *models.Client, err error) {
 	defer func(begin time.Time) {
 		m.logger.Log(
 			"method", "Create",
-			"input", fmt.Sprint(map[string]string{
-				"ip":     distinctions.IP,
-				"hash":   distinctions.Hash,
-				"userID": distinctions.UserID,
-			}),
-			"output", fmt.Sprint(output),
+			"input", client.String(),
+			"output", output.String(),
 			"err", err,
 			"took", time.Since(begin),
 		)
 	}(time.Now())
-	output, err = m.next.Create(ctx, distinctions)
+	output, err = m.next.Create(ctx, client)
 	return
 }

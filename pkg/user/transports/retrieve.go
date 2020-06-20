@@ -11,8 +11,7 @@ import (
 
 // RetrieveRequest ...
 type RetrieveRequest struct {
-	ID    uint   `json:"id"`
-	Email string `json:"email"`
+	User *models.User `json:"user"`
 }
 
 // RetrieveResponse ...

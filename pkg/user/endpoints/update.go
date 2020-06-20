@@ -14,7 +14,7 @@ import (
 func MakeUpdateEndpoint(svc services.Services) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(*transports.UpdateRequest)
-		user, err := svc.Update(ctx, req.ID, req.Credentials)
+		user, err := svc.Update(ctx, req.User)
 		if err != nil {
 			return &transports.UpdateResponse{
 				User: user,
@@ -29,8 +29,8 @@ func MakeUpdateEndpoint(svc services.Services) endpoint.Endpoint {
 }
 
 // Update ...
-func (e *Endpoints) Update(ctx context.Context, id uint, credentials models.Credentials) (*models.User, error) {
-	req := &transports.UpdateRequest{ID: id, Credentials: credentials}
+func (e *Endpoints) Update(ctx context.Context, user *models.User) (*models.User, error) {
+	req := &transports.UpdateRequest{User: user}
 	resp, err := e.UpdateEndpoint(ctx, req)
 	if err != nil {
 		return nil, err

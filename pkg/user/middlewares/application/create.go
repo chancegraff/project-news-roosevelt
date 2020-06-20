@@ -2,26 +2,22 @@ package application
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/pronuu/roosevelt/internal/models"
-	"github.com/pronuu/roosevelt/internal/utils"
 )
 
 // Create ...
-func (m *Middleware) Create(ctx context.Context, credentials models.Credentials) (output *models.User, err error) {
+func (m *Middleware) Create(ctx context.Context, user *models.User) (output *models.User, err error) {
 	defer func(begin time.Time) {
 		m.logger.Log(
 			"method", "Create",
-			"input", fmt.Sprint(map[string]string{
-				"email": fmt.Sprint(credentials.Email),
-			}),
-			"output", fmt.Sprint(utils.GetSafeUser(output)),
+			"input", user.String(),
+			"output", output.String(),
 			"err", err,
 			"took", time.Since(begin),
 		)
 	}(time.Now())
-	output, err = m.next.Create(ctx, credentials)
+	output, err = m.next.Create(ctx, user)
 	return
 }

@@ -9,8 +9,8 @@ import (
 
 // Services implements the ranker interface
 type Services interface {
-	Create(ctx context.Context, distinctions models.Distinctions) (*models.Client, error)
-	Retrieve(ctx context.Context, id uint, ip, hash, userID string) (*models.Client, error)
+	Create(ctx context.Context, client *models.Client) (*models.Client, error)
+	Retrieve(ctx context.Context, client *models.Client) (*models.Client, error)
 }
 
 type services struct {

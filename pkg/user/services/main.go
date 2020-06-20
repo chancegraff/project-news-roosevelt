@@ -9,9 +9,9 @@ import (
 
 // Services implements the collector interface
 type Services interface {
-	Create(ctx context.Context, credentials models.Credentials) (*models.User, error)
-	Retrieve(ctx context.Context, id uint, email string) (*models.User, error)
-	Update(ctx context.Context, id uint, credentials models.Credentials) (*models.User, error)
+	Create(ctx context.Context, user *models.User) (*models.User, error)
+	Retrieve(ctx context.Context, user *models.User) (*models.User, error)
+	Update(ctx context.Context, user *models.User) (*models.User, error)
 }
 
 type services struct {
