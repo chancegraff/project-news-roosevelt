@@ -14,7 +14,7 @@ func MakeUpdateRoute(endpoints *endpoints.Endpoints) *httptransport.Server {
 	return httptransport.NewServer(
 		endpoints.UpdateEndpoint,
 		transports.DecodeUpdateHTTPRequest,
-		transports.EncodeUpdateHTTPRequest,
+		transports.EncodeUpdateHTTPResponse,
 	)
 }
 

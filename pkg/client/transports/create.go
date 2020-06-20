@@ -26,10 +26,10 @@ func DecodeCreateHTTPRequest(ctx context.Context, r *http.Request) (interface{},
 	if err := json.NewDecoder(r.Body).Decode(&request); err != io.EOF && err != nil {
 		return nil, err
 	}
-	return request, nil
+	return &request, nil
 }
 
-// EncodeCreateHTTPRequest ...
-func EncodeCreateHTTPRequest(ctx context.Context, w http.ResponseWriter, response interface{}) error {
+// EncodeCreateHTTPResponse ...
+func EncodeCreateHTTPResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
 	return json.NewEncoder(w).Encode(response)
 }

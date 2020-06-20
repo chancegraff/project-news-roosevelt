@@ -14,7 +14,7 @@ func MakeCreateRoute(endpoints *endpoints.Endpoints) *httptransport.Server {
 	return httptransport.NewServer(
 		endpoints.CreateEndpoint,
 		transports.DecodeCreateHTTPRequest,
-		transports.EncodeCreateHTTPRequest,
+		transports.EncodeCreateHTTPResponse,
 	)
 }
 

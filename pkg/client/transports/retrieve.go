@@ -29,10 +29,10 @@ func DecodeRetrieveHTTPRequest(ctx context.Context, r *http.Request) (interface{
 	if err := json.NewDecoder(r.Body).Decode(&request); err != io.EOF && err != nil {
 		return nil, err
 	}
-	return request, nil
+	return &request, nil
 }
 
-// EncodeRetrieveHTTPRequest ...
-func EncodeRetrieveHTTPRequest(ctx context.Context, w http.ResponseWriter, response interface{}) error {
+// EncodeRetrieveHTTPResponse ...
+func EncodeRetrieveHTTPResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
 	return json.NewEncoder(w).Encode(response)
 }

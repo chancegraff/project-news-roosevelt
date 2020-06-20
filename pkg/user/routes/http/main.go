@@ -14,8 +14,8 @@ type Routes struct {
 }
 
 // NewRoutes ...
-func NewRoutes(endpoints *endpoints.Endpoints) Routes {
-	return Routes{
+func NewRoutes(endpoints *endpoints.Endpoints) *Routes {
+	return &Routes{
 		CreateRoute:   MakeCreateRoute(endpoints),
 		UpdateRoute:   MakeUpdateRoute(endpoints),
 		RetrieveRoute: MakeRetrieveRoute(endpoints),

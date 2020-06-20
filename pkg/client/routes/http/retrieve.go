@@ -14,7 +14,7 @@ func MakeRetrieveRoute(endpoints *endpoints.Endpoints) *httptransport.Server {
 	return httptransport.NewServer(
 		endpoints.RetrieveEndpoint,
 		transports.DecodeRetrieveHTTPRequest,
-		transports.EncodeRetrieveHTTPRequest,
+		transports.EncodeRetrieveHTTPResponse,
 	)
 }
 

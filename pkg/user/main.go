@@ -10,7 +10,7 @@ import (
 )
 
 // NewUserService ...
-func NewUserService(str *database.Store, lgr log.Logger) routes.Routes {
+func NewUserService(str *database.Store, lgr log.Logger) *routes.Routes {
 	mdl := middlewares.NewMiddleware(lgr)
 	svc := services.NewServices(str)
 	svc = mdl.BindServices(svc)

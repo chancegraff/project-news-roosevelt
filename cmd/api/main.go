@@ -23,7 +23,7 @@ func main() {
 	// Create store
 	str, err := database.NewStore()
 	if err != nil {
-		lgr.Log("msg", "database connection failed")
+		lgr.Log("err", "Database connection failed")
 		cancel()
 		return
 	}

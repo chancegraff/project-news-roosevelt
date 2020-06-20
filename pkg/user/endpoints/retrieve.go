@@ -13,15 +13,15 @@ import (
 // MakeRetrieveEndpoint ...
 func MakeRetrieveEndpoint(svc services.Services) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(transports.RetrieveRequest)
+		req := request.(*transports.RetrieveRequest)
 		user, err := svc.Retrieve(ctx, req.ID, req.Email)
 		if err != nil {
-			return transports.RetrieveResponse{
+			return &transports.RetrieveResponse{
 				User: user,
 				Err:  err.Error(),
 			}, nil
 		}
-		return transports.RetrieveResponse{
+		return &transports.RetrieveResponse{
 			User: user,
 			Err:  "",
 		}, nil
@@ -30,12 +30,12 @@ func MakeRetrieveEndpoint(svc services.Services) endpoint.Endpoint {
 
 // Retrieve ...
 func (e *Endpoints) Retrieve(ctx context.Context, id uint, email string) (*models.User, error) {
-	req := transports.RetrieveRequest{ID: id, Email: email}
+	req := &transports.RetrieveRequest{ID: id, Email: email}
 	resp, err := e.RetrieveEndpoint(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	retrieveResp := resp.(transports.RetrieveResponse)
+	retrieveResp := resp.(*transports.RetrieveResponse)
 	if retrieveResp.Err != "" {
 		return nil, errors.New(retrieveResp.Err)
 	}

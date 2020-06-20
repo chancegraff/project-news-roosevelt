@@ -1,6 +1,8 @@
 package http
 
 import (
+	"io/ioutil"
+	"log"
 	web "net/http"
 
 	httptransport "github.com/go-kit/kit/transport/http"
@@ -14,12 +16,14 @@ func MakeCreateRoute(endpoints *endpoints.Endpoints) *httptransport.Server {
 	return httptransport.NewServer(
 		endpoints.CreateEndpoint,
 		transports.DecodeCreateHTTPRequest,
-		transports.EncodeCreateHTTPRequest,
+		transports.EncodeCreateHTTPResponse,
 	)
 }
 
 // Create ...
 func (r *Routes) Create(rw web.ResponseWriter, rq *web.Request) {
+	body, _ := ioutil.ReadAll(rq.Body)
+	log.Println("Routes create", string(body))
 	utils.SetCORSHeaders(rw)
 
 	if rq.Method == "OPTIONS" {
