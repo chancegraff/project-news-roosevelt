@@ -17,12 +17,17 @@ func MakeUpdateMiddleware(logger log.Logger, next endpoints.Endpoints) endpoint.
 		defer func(begin time.Time) {
 			logger.Log(
 				"method", "Update",
-				"input", fmt.Sprint(rq),
-				"output", fmt.Sprint(output),
-				"err", err,
+				"event", "end",
 				"took", time.Since(begin),
 			)
 		}(time.Now())
+		logger.Log(
+			"method", "Update",
+			"event", "start",
+			"input", fmt.Sprint(rq),
+			"output", fmt.Sprint(output),
+			"err", err,
+		)
 		output, err = next.UpdateEndpoint(ctx, rq)
 		return
 	}

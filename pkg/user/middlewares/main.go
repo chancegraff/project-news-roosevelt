@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/log/level"
 	"github.com/pronuu/roosevelt/pkg/user/endpoints"
 	"github.com/pronuu/roosevelt/pkg/user/middlewares/application"
 	"github.com/pronuu/roosevelt/pkg/user/middlewares/transport"
@@ -10,6 +11,7 @@ import (
 
 // NewMiddleware ...
 func NewMiddleware(logger log.Logger) *Middleware {
+	logger = level.Info(logger)
 	return &Middleware{
 		ApplicationLogger: application.MakeMiddleware(logger),
 		TransportLogger:   transport.MakeMiddleware(logger),
