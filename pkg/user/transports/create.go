@@ -21,9 +21,9 @@ type CreateResponse struct {
 }
 
 // DecodeCreateHTTPRequest ...
-func DecodeCreateHTTPRequest(ctx context.Context, r *http.Request) (interface{}, error) {
+func DecodeCreateHTTPRequest(ctx context.Context, rq *http.Request) (interface{}, error) {
 	var request CreateRequest
-	if err := json.NewDecoder(r.Body).Decode(&request); err != io.EOF && err != nil {
+	if err := json.NewDecoder(rq.Body).Decode(&request); err != io.EOF && err != nil {
 		return nil, err
 	}
 	return &request, nil

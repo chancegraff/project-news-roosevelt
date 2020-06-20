@@ -13,7 +13,11 @@ func (m *Middleware) Create(ctx context.Context, distinctions models.Distinction
 	defer func(begin time.Time) {
 		m.logger.Log(
 			"method", "Create",
-			"input", fmt.Sprint(distinctions),
+			"input", fmt.Sprint(map[string]string{
+				"ip":     distinctions.IP,
+				"hash":   distinctions.Hash,
+				"userID": distinctions.UserID,
+			}),
 			"output", fmt.Sprint(output),
 			"err", err,
 			"took", time.Since(begin),

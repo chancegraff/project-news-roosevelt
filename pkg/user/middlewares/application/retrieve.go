@@ -15,10 +15,10 @@ func (m *Middleware) Retrieve(ctx context.Context, id uint, email string) (outpu
 	defer func(begin time.Time) {
 		m.logger.Log(
 			"method", "Retrieve",
-			"input", map[string]string{
+			"input", fmt.Sprint(map[string]string{
 				"id":    strconv.Itoa(int(id)),
 				"email": email,
-			},
+			}),
 			"output", fmt.Sprint(utils.GetSafeUser(output)),
 			"err", err,
 			"took", time.Since(begin),

@@ -10,7 +10,7 @@ import (
 )
 
 // MakeRetrieveRoute ...
-func MakeRetrieveRoute(endpoints *endpoints.Endpoints) *httptransport.Server {
+func MakeRetrieveRoute(endpoints endpoints.Endpoints) *httptransport.Server {
 	return httptransport.NewServer(
 		endpoints.RetrieveEndpoint,
 		transports.DecodeRetrieveHTTPRequest,

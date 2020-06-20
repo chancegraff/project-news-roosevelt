@@ -3,7 +3,6 @@ package endpoints
 import (
 	"context"
 	"errors"
-	"log"
 
 	"github.com/go-kit/kit/endpoint"
 	"github.com/pronuu/roosevelt/internal/models"
@@ -14,7 +13,6 @@ import (
 // MakeCreateEndpoint ...
 func MakeCreateEndpoint(svc services.Services) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		log.Println("create endpoint", request)
 		req := request.(*transports.CreateRequest)
 		user, err := svc.Create(ctx, req.Credentials)
 		if err != nil {

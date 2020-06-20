@@ -16,17 +16,12 @@ func MakeCreateMiddleware(logger log.Logger, next endpoints.Endpoints) endpoint.
 		defer func(begin time.Time) {
 			logger.Log(
 				"method", "Create",
-				"event", "stop",
+				"input", fmt.Sprint(rq),
+				"output", fmt.Sprint(output),
+				"err", err,
 				"took", time.Since(begin),
 			)
 		}(time.Now())
-		logger.Log(
-			"method", "Create",
-			"event", "start",
-			"input", fmt.Sprint(rq),
-			"output", fmt.Sprint(output),
-			"err", err,
-		)
 		output, err = next.CreateEndpoint(ctx, rq)
 		return
 	}

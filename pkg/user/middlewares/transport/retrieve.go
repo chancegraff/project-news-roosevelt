@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-kit/kit/log"
-
 	"github.com/go-kit/kit/endpoint"
+	"github.com/go-kit/kit/log"
 	"github.com/pronuu/roosevelt/pkg/user/endpoints"
 )
 
@@ -17,17 +16,12 @@ func MakeRetrieveMiddleware(logger log.Logger, next endpoints.Endpoints) endpoin
 		defer func(begin time.Time) {
 			logger.Log(
 				"method", "Retrieve",
-				"event", "end",
+				"input", fmt.Sprint(rq),
+				"output", fmt.Sprint(output),
+				"err", err,
 				"took", time.Since(begin),
 			)
 		}(time.Now())
-		logger.Log(
-			"method", "Retrieve",
-			"event", "start",
-			"input", fmt.Sprint(rq),
-			"output", fmt.Sprint(output),
-			"err", err,
-		)
 		output, err = next.RetrieveEndpoint(ctx, rq)
 		return
 	}

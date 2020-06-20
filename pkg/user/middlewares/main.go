@@ -10,9 +10,9 @@ import (
 )
 
 // NewMiddleware ...
-func NewMiddleware(logger log.Logger) *Middleware {
+func NewMiddleware(logger log.Logger) Middleware {
 	logger = level.Info(logger)
-	return &Middleware{
+	return Middleware{
 		ApplicationLogger: application.MakeMiddleware(logger),
 		TransportLogger:   transport.MakeMiddleware(logger),
 	}

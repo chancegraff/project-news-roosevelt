@@ -14,9 +14,9 @@ func (m *Middleware) Create(ctx context.Context, credentials models.Credentials)
 	defer func(begin time.Time) {
 		m.logger.Log(
 			"method", "Create",
-			"input", map[string]string{
+			"input", fmt.Sprint(map[string]string{
 				"email": fmt.Sprint(credentials.Email),
-			},
+			}),
 			"output", fmt.Sprint(utils.GetSafeUser(output)),
 			"err", err,
 			"took", time.Since(begin),

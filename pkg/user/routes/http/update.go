@@ -10,7 +10,7 @@ import (
 )
 
 // MakeUpdateRoute ...
-func MakeUpdateRoute(endpoints *endpoints.Endpoints) *httptransport.Server {
+func MakeUpdateRoute(endpoints endpoints.Endpoints) *httptransport.Server {
 	return httptransport.NewServer(
 		endpoints.UpdateEndpoint,
 		transports.DecodeUpdateHTTPRequest,

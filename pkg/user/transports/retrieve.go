@@ -22,7 +22,7 @@ type RetrieveResponse struct {
 }
 
 // DecodeRetrieveHTTPRequest ...
-func DecodeRetrieveHTTPRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func DecodeRetrieveHTTPRequest(ctx context.Context, r *http.Request) (interface{}, error) {
 	var request RetrieveRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != io.EOF && err != nil {
 		return nil, err
@@ -31,6 +31,6 @@ func DecodeRetrieveHTTPRequest(_ context.Context, r *http.Request) (interface{},
 }
 
 // EncodeRetrieveHTTPResponse ...
-func EncodeRetrieveHTTPResponse(_ context.Context, w http.ResponseWriter, response interface{}) error {
+func EncodeRetrieveHTTPResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
 	return json.NewEncoder(w).Encode(response)
 }

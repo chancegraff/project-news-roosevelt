@@ -15,10 +15,10 @@ func (m *Middleware) Update(ctx context.Context, id uint, credentials models.Cre
 	defer func(begin time.Time) {
 		m.logger.Log(
 			"method", "Update",
-			"input", map[string]string{
+			"input", fmt.Sprint(map[string]string{
 				"id":    strconv.Itoa(int(id)),
 				"email": credentials.Email,
-			},
+			}),
 			"output", fmt.Sprint(utils.GetSafeUser(output)),
 			"err", err,
 			"took", time.Since(begin),
