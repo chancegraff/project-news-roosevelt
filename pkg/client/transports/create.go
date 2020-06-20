@@ -16,8 +16,8 @@ type CreateRequest struct {
 
 // CreateResponse ...
 type CreateResponse struct {
-	Client models.Client `json:"client"`
-	Err    string        `json:"err,omitempty"`
+	Client *models.Client `json:"client"`
+	Err    string         `json:"err,omitempty"`
 }
 
 // DecodeCreateHTTPRequest ...

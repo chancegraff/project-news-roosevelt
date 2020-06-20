@@ -7,7 +7,7 @@ import (
 )
 
 // Retrieve ...
-func (s *service) Retrieve(ctx context.Context, id uint, ip, hash, userID string) (*models.Client, error) {
+func (s *services) Retrieve(ctx context.Context, id uint, ip, hash, userID string) (*models.Client, error) {
 	client := models.Client{
 		Base: models.Base{
 			ID: id,

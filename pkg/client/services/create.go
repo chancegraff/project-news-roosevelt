@@ -8,7 +8,7 @@ import (
 )
 
 // Create ...
-func (s *service) Create(ctx context.Context, distinctions models.Distinctions) (*models.Client, error) {
+func (s *services) Create(ctx context.Context, distinctions models.Distinctions) (*models.Client, error) {
 	client := models.Client{
 		Distinctions: distinctions,
 		ExpiredAt:    utils.Tomorrow(),

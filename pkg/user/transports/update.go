@@ -17,8 +17,8 @@ type UpdateRequest struct {
 
 // UpdateResponse ...
 type UpdateResponse struct {
-	User models.User `json:"user"`
-	Err  string      `json:"err,omitempty"`
+	User *models.User `json:"user"`
+	Err  string       `json:"err,omitempty"`
 }
 
 // DecodeUpdateHTTPRequest ...

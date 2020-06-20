@@ -5,6 +5,7 @@ import (
 	"os/signal"
 
 	"github.com/go-kit/kit/log"
+	"github.com/pronuu/roosevelt/internal/models"
 )
 
 // GetEnvVar ...
@@ -24,9 +25,27 @@ func GetLogger(serviceName string) log.Logger {
 	return lgr
 }
 
-// GetDoneChannel creates a new channel to listen for done signals on
+// GetDoneChannel will create a new channel to listen for done signals on
 func GetDoneChannel() *chan os.Signal {
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt)
 	return &done
+}
+
+// GetSafeUser will pull out and return the safe attributes from a user instance
+func GetSafeUser(u *models.User) *models.User {
+	if u == nil {
+		return nil
+	}
+	return &models.User{
+		Credentials: models.Credentials{
+			Email: u.Email,
+		},
+		Base: models.Base{
+			ID:        u.ID,
+			CreatedAt: u.CreatedAt,
+			UpdatedAt: u.UpdatedAt,
+		},
+		VerifiedAt: u.VerifiedAt,
+	}
 }

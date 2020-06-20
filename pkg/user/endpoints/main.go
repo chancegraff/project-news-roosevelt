@@ -13,10 +13,13 @@ type Endpoints struct {
 }
 
 // NewEndpoints ...
-func NewEndpoints(s services.Service) Endpoints {
+func NewEndpoints(s services.Services) Endpoints {
 	return Endpoints{
 		CreateEndpoint:   MakeCreateEndpoint(s),
 		UpdateEndpoint:   MakeUpdateEndpoint(s),
 		RetrieveEndpoint: MakeRetrieveEndpoint(s),
 	}
 }
+
+// Middleware ...
+type Middleware func(Endpoints) Endpoints

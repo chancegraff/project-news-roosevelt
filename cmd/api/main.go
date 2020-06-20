@@ -29,8 +29,8 @@ func main() {
 	}
 
 	// Create services
-	user := user.NewUserService(str)
-	client := client.NewClientService(str)
+	user := user.NewUserService(str, lgr)
+	client := client.NewClientService(str, lgr)
 
 	// Create router
 	rtr := mux.NewRouter()

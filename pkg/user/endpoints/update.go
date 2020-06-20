@@ -11,18 +11,18 @@ import (
 )
 
 // MakeUpdateEndpoint ...
-func MakeUpdateEndpoint(svc services.Service) endpoint.Endpoint {
+func MakeUpdateEndpoint(svc services.Services) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(transports.UpdateRequest)
 		user, err := svc.Update(ctx, req.ID, req.Credentials)
 		if err != nil {
 			return transports.UpdateResponse{
-				User: *user,
+				User: user,
 				Err:  err.Error(),
 			}, nil
 		}
 		return transports.UpdateResponse{
-			User: *user,
+			User: user,
 			Err:  "",
 		}, nil
 	}
@@ -39,5 +39,5 @@ func (e *Endpoints) Update(ctx context.Context, id uint, credentials models.Cred
 	if updateResp.Err != "" {
 		return nil, errors.New(updateResp.Err)
 	}
-	return &updateResp.User, nil
+	return updateResp.User, nil
 }
