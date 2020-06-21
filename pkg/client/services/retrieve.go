@@ -2,19 +2,29 @@ package services
 
 import (
 	"context"
-	"errors"
 
 	"github.com/pronuu/roosevelt/internal/models"
+	"github.com/pronuu/roosevelt/internal/utils"
 )
 
 // Retrieve ...
-func (s *services) Retrieve(ctx context.Context, client *models.Client) (*models.Client, error) {
+func (s *services) Retrieve(ctx context.Context, client *models.Client) (output *models.Client, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = utils.NilPointer()
+			output = nil
+			return
+		}
+	}()
 	if client.ID == 0 && client.Hash == "" && client.UserID == "" && client.IP == "" {
-		return nil, errors.New("Invalid request")
+		err = utils.MissingKey()
+		return
 	}
-	err := s.Store.Database.Where(client).First(client).Error
+	output = client
+	err = s.Store.Database.Model(client).Where(client).First(output).Error
 	if err != nil {
-		return nil, err
+		output = nil
+		return
 	}
-	return client, nil
+	return
 }

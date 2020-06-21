@@ -2,21 +2,31 @@ package services
 
 import (
 	"context"
-	"errors"
 	"time"
 
 	"github.com/pronuu/roosevelt/internal/models"
+	"github.com/pronuu/roosevelt/internal/utils"
 )
 
 // Create ...
-func (s *services) Create(ctx context.Context, user *models.User) (*models.User, error) {
+func (s *services) Create(ctx context.Context, user *models.User) (output *models.User, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = utils.NilPointer()
+			output = nil
+			return
+		}
+	}()
 	if user.Email == "" || user.Password == "" {
-		return nil, errors.New("Invalid request")
+		err = utils.MissingKey()
+		return
 	}
-	user.CreatedAt = time.Now()
-	err := s.Store.Database.Create(user).Error
+	output = user
+	output.CreatedAt = time.Now()
+	err = s.Store.Database.Model(user).Create(output).Error
 	if err != nil {
-		return nil, err
+		output = nil
+		return
 	}
-	return user, nil
+	return
 }

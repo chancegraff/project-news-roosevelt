@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"errors"
 	"time"
 
 	"github.com/pronuu/roosevelt/internal/models"
@@ -10,15 +9,25 @@ import (
 )
 
 // Create ...
-func (s *services) Create(ctx context.Context, client *models.Client) (*models.Client, error) {
+func (s *services) Create(ctx context.Context, client *models.Client) (output *models.Client, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = utils.NilPointer()
+			output = nil
+			return
+		}
+	}()
 	if client.Hash == "" || client.IP == "" {
-		return nil, errors.New("Invalid request")
+		err = utils.MissingKey()
+		return
 	}
-	client.CreatedAt = time.Now()
-	client.ExpiredAt = utils.Tomorrow()
-	err := s.Store.Database.Create(client).Error
+	output = client
+	output.CreatedAt = time.Now()
+	output.ExpiredAt = utils.Tomorrow()
+	err = s.Store.Database.Model(client).Create(output).Error
 	if err != nil {
-		return nil, err
+		output = nil
+		return
 	}
-	return client, nil
+	return
 }

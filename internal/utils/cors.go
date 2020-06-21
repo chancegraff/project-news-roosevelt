@@ -5,18 +5,15 @@ import (
 	"strings"
 
 	"github.com/gorilla/handlers"
+	"github.com/pronuu/roosevelt/internal/constants"
 )
 
 // AllowedOrigins ...
-var AllowedOrigins = []string{
-	"localhost",
-	"0.0.0.0",
-	"127.0.0.1",
-}
+var AllowedOrigins, _ = GetEnvVar(constants.AllowedOrigins, "localhost,0.0.0.0,127.0.0.1")
 
 // CORSOrigin ...
 var CORSOrigin = handlers.AllowedOrigins(
-	AllowedOrigins,
+	strings.Split(AllowedOrigins, ","),
 )
 
 // CORSHeaders ...
@@ -34,7 +31,7 @@ var SetCORSPolicy = handlers.CORS(CORSMethods, CORSHeaders, CORSOrigin)
 
 // SetCORSHeaders ...
 func SetCORSHeaders(writer http.ResponseWriter) {
-	writer.Header().Set("Access-Control-Allow-Origin", strings.Join(AllowedOrigins, ","))
+	writer.Header().Set("Access-Control-Allow-Origin", AllowedOrigins)
 	writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, HEAD")
 	writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Requested-With, X-Token-Auth, Authorization")
 }
